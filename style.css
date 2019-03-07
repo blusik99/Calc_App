@@ -1,0 +1,26 @@
+#container
+{
+    background-color: black;
+    width: 500px;
+    margin:0 auto;
+    height: 1000px;
+}
+div{
+ background-color: aquamarine;
+ width: 25%;
+}
+ div.first{
+
+    background-color: magenta;
+    height: 20px;
+    transition: height 10s ease-out;
+    min height: 1000px;
+
+ }
+ div.first:hover{
+
+    height:100px;
+
+ }
+
+}
