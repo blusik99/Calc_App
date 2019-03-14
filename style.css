@@ -1,26 +1,28 @@
-#container
-{
-    background-color: black;
-    width: 500px;
-    margin:0 auto;
-    height: 1000px;
+#container {
+   background-color: black;
+   width: 600px;
+   margin: 0 auto;
+   display:flex;
+    align-items: center;
+   justify-content: space-between;
 }
-div{
- background-color: aquamarine;
- width: 25%;
+
+#container>div {
+   height: 100px;
+   width: 100px;
+
+   background-color: aquamarine;
+   transition: all .2s linear;
+   align-items: center;
 }
- div.first{
 
-    background-color: magenta;
-    height: 20px;
-    transition: height 10s ease-out;
-    min height: 1000px;
+#container>div:nth-child(2) {
+   background-color: deeppink;
+   height: 50px;
 
- }
- div.first:hover{
+}
 
-    height:100px;
-
- }
+#container>div:hover {
+   background-color: blueviolet;
 
 }
