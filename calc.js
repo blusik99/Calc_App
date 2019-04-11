@@ -84,57 +84,108 @@
 
 
 
-   const  fields=[ {txt:0, row:5,col:'1/2'},
-                   {txt:1, row:4,col:1},
-                   {txt:2, row:4,col:2},
-                   {txt:3, row:4,col:3},
-                   {txt:4, row:3,col:1},
-                   {txt:5, row:3,col:2},
-                   {txt:6, row:3,col:3},
-                   {txt:7, row:2,col:1},
-                   {txt:8, row:2,col:2},
-                   {txt:9, row:2,col:3},
-                   {txt:'C', row:2,col:4},
-                   {txt:'+', row:3,col:4},
-                   {txt:'-', row:4,col:4},
-                   {txt:'=', row:5,col:4},
-                   {txt:'.', row:5,col:3},
-                   {txt:'DISPLAY', row:1,col:'1/5'},
+const fields = [{ txt: 0, row: 5, col: '1/2' },
+{ txt: 1, row: 4, col: 1 },
+{ txt: 2, row: 4, col: 2 },
+{ txt: 3, row: 4, col: 3 },
+{ txt: 4, row: 3, col: 1 },
+{ txt: 5, row: 3, col: 2 },
+{ txt: 6, row: 3, col: 3 },
+{ txt: 7, row: 2, col: 1 },
+{ txt: 8, row: 2, col: 2 },
+{ txt: 9, row: 2, col: 3 },
+{ txt: 'C', row: 2, col: 4 },
+{ txt: '+', row: 3, col: 4 },
+{ txt: '-', row: 4, col: 4 },
+{ txt: '=', row: 5, col: 4 },
+{ txt: '.', row: 5, col: 3 },
+{ txt: 'DISPLAY', row: 1, col: '1/5' },
 
-       '0','1','2','3','4','5','6','7','8','9','C','+','-','=','.','DISPLAY'];
+];
 
-   const init= ()=>{
-       const container = document.createElement('div');
-       container.id='container';
+let mem = 0;
+let clearFlag = false;
+let op = 0;
 
-       fields.forEach(el =>{
-           const div =  document.createElement('div');
-           div.textContent =el.txt;
-           div.style.gridColumn=el.col;
-           div.style.gridRow=el.row;
+const handleClick = ev => {
+    const disp = document.getElementById('DISPLAY');
+    const key = ev.target.textContent;
 
-           if(el.txt=='DISPLAY'){
-               div.id='DISPLAY';
+    switch (key) {
+        case 'C':
+            disp.textContent = '0';
+            clearFlag = false;
+            mem = 0;
+            break;
+        case '+':
 
-           }else {
-                 div.addEventListener('click',ev=> {
-                     const d=document.getElementById('DISPLAY');
-                     d.textContent=ev.target.textContent;
-           });
+        case '-':
+            if (op === 0) {
+                mem = parseFloat(disp.textContent);
+            } else {
+                mem += op * parseFloat(disp.textContent);
+            }
+            op = key === '+' ? 1 : -1;
+            clearFlag = true;
+
+            break;
+        case '=':
+            if (op === 0) {
+                mem = parseFloat(disp.textContent);
+            } else {
+                mem += op * parseFloat(disp.textContent);
+            }
+            op = 0;
+
+            disp.textContent=mem;
+            break;
+
+        default:
+            if (key === '0' && disp.textContent === '0') return;
+            if (key === '.' && disp.textContent.includes('.')) return;
+            if ((disp.textContent === '0' && key !== '.') || clearFlag) {
+                disp.textContent = key;
+                clearFlag = false;
+            } else {
+
+                disp.textContent += key;
+            }
+            break;
+    }
+}
+
+
+
+const init = () => {
+    const container = document.createElement('div');
+    container.id = 'container';
+
+    fields.forEach(el => {
+        const div = document.createElement('div');
+        div.textContent = el.txt;
+        div.style.gridColumn = el.col;
+        div.style.gridRow = el.row;
+
+        if (el.txt == 'DISPLAY') {
+            div.id = 'DISPLAY';
+                div.textContent="";
+
+        } else {
+            div.addEventListener('click', handleClick);
         }
-           container.appendChild(div);
+        container.appendChild(div);
 
-       });
+    });
 
-  // const container= document.getElementById('container');
-   //for(let i=0; i<fields.length;++i){
-     //  console.log(fields[i]);
-     document.body.appendChild(container);
-   }
-
-
+    // const container= document.getElementById('container');
+    //for(let i=0; i<fields.length;++i){
+    //  console.log(fields[i]);
+    document.body.appendChild(container);
+}
 
 
 
 
-window.addEventListener('DOMContentLoaded',init);
+
+
+window.addEventListener('DOMContentLoaded', init);
