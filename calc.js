@@ -84,7 +84,7 @@
 
 
 
-const fields = [{ txt: 0, row: 5, col: '1/2' },
+const fields = [{ txt: 0, row: 5, col: '1/3' },
 { txt: 1, row: 4, col: 1 },
 { txt: 2, row: 4, col: 2 },
 { txt: 3, row: 4, col: 3 },
